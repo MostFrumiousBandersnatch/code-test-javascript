@@ -44,12 +44,23 @@ Your devbuddies team :)
 ## Solution
 **NodeJS 7.0 or younger is required!!!**
 
-There is an implementation of Bowling gameplay. No UI so far. Anyway, you can run the demo-game in console:
+There is an implementation of Bowling gameplay.
+You can run the demo-game in console:
+
 ```
 npm install
 node --harmony-async-await run-in-console.js  Curt Roland Robert Ian
 
 ```
+
+either open it in browser index.html:
+```
+npm install
+webpack run build
+
+```
+Deployed instance: http://ivan-kondratyev.ru/demo/bowling/.
+
 
 To run the tests:
 ```

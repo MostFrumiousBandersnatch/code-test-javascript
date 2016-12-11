@@ -1,11 +1,10 @@
 #!/bin/env node
 
-const { AbstractLane, breakSomePins, AbstractDisplay  } = require('./lane.js');
-const { AbstractPlayer } = require('./player.js');
+const { AbstractLane, breakSomePins, AbstractDisplay  } = require('./lib/lane.js');
+const { AbstractPlayer } = require('./lib/player.js');
+const { bowlingManager } = require('./lib/gameplay.js');
 
-const { bowlingManager } = require('./gameplay.js');
-
-class DumbCLILane extends AbstractLane {
+class Lane extends AbstractLane {
     setPins (layout) {
         return Promise.resolve(layout);
     }
@@ -17,7 +16,7 @@ class DumbCLILane extends AbstractLane {
     }
 }
 
-class DumbCLIPlayer extends AbstractPlayer {
+class Player extends AbstractPlayer {
     throwBall(layout) {
         return Promise.resolve({
             knockedPinsCount: Math.round(Math.random() * layout.count)
@@ -25,13 +24,11 @@ class DumbCLIPlayer extends AbstractPlayer {
     }
 }
 
-class DumbCLIDisplay extends AbstractDisplay {
+class Display extends AbstractDisplay {
     greetPlayers (players) {
         for (let player of players) {
             console.log(`Welcome ${player.name}! Let's play!\n`);
         }
-
-        //even though it's not necessary
         return Promise.resolve();
     }
 
@@ -41,8 +38,8 @@ class DumbCLIDisplay extends AbstractDisplay {
         return Promise.resolve();
     }
 
-    showFrameReport (player, frame, score, extra) {
-        console.log(`===========# ${frame}  ${player.name} earns ${score}#========== ${extra ? extra : ''}\n`)
+    showFrameReport (player, frame, score, extra, total_score) {
+        console.log(`===========# ${frame}  ${player.name} earns ${score}=>(${total_score})========= ${extra ? extra : ''}\n`)
 
         return Promise.resolve();
     }
@@ -59,7 +56,7 @@ class DumbCLIDisplay extends AbstractDisplay {
 
 
 bowlingManager(
-    new DumbCLILane(), new DumbCLIDisplay(),
-    ...process.argv.slice(2).map(name => (new DumbCLIPlayer(name)))
+    new Lane(), new Display(),
+    ...process.argv.slice(2).map(name => (new Player(name)))
 );
 
