@@ -56,7 +56,7 @@ node --harmony-async-await run-in-console.js  Curt Roland Robert Ian
 either open it in browser index.html:
 ```
 npm install
-webpack run build
+npm run build
 
 ```
 Deployed instance: http://ivan-kondratyev.ru/demo/bowling/.
